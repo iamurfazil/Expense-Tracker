@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Expense Tracker</div>
+            <ul class="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#add-expense">Add Expense</a></li>
+                <li><a href="#reports">Reports</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="summary" class="summary-section">
+            <div class="summary-box">
+                <div>
+                    <h3>Income</h3>
+                    <p id="total-income">₹50,000.00</p>
+                </div>
+            </div>
+            <div class="summary-box">
+                <div>
+                    <h3>Expenses</h3>
+                    <p id="total-expenses">₹20,000.00</p>
+                </div>
+            </div>
+            <div class="summary-box">
+                <div>
+                    <h3>Net Income</h3>
+                    <p id="net-income">₹30,000.00</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="add-expense" class="add-expense-section">
+            <h2 class="section-title">Add Expense</h2>
+            <div class="center-btn">
+            <button id="open-modal-btn" class="primary-btn">+ Add Expense</button>
+            </div>
+        
+            <!-- Modal -->
+            <div id="expense-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3 class="modal-title">Add Transaction</h3>
+                <form id="transaction-form" class="form">
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <select id="type" name="type" required>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description" placeholder="Enter description" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                    <option value="food">Food</option>
+                    <option value="transport">Transport</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="salary">Salary</option>
+                    <option value="other">Other</option>
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+                </div>
+        
+                <button type="submit" id="add-transaction-btn" class="primary-btn">Add Transaction</button>
+                <p id="error-message" class="error-message"></p>
+                </form>
+            </div>
+            </div>
+        </section>
+
+        <section id="filters">
+            <h3>Filter Transactions</h3>
+            <div class="filter-container">
+                <select id="filter-type">
+                    <option value="all">All</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+                <select id="filter-category">
+                    <option value="all">All Categories</option>
+                    <option value="food">Food</option>
+                    <option value="transport">Transport</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="salary">Salary</option>
+                </select>
+                <input type="date" id="filter-date-start">
+                <input type="date" id="filter-date-end">
+                <button id="apply-filters" class="primary-btn">Apply Filters</button>
+            </div>
+        </section>
+
+        <section id="transaction-list">
+            <h2>Transaction List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-table-body">
+                    <tr>
+                        <td>Income</td>
+                        <td>2025-05-01</td>
+                        <td>Salary</td>
+                        <td>Salary</td>
+                        <td>₹50,000.00</td>
+                        <td>
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Expense</td>
+                        <td>2025-05-02</td>
+                        <td>Groceries</td>
+                        <td>Food</td>
+                        <td>₹5,000.00</td>
+                        <td>
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Expense</td>
+                        <td>2025-05-03</td>
+                        <td>Transport</td>
+                        <td>Transport</td>
+                        <td>₹2,000.00</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="dark-mode">
+            <button id="dark-mode-toggle" class="primary-btn">Toggle Dark Mode</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Expense Tracker. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
